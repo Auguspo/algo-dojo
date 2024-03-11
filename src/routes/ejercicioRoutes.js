@@ -1,6 +1,7 @@
-// api/ejercicios.js
-import { getAllEjercicios, getEjercicioById, createEjercicio, updateEjercicio, deleteEjercicio } from "../utils/ejercicios.js";
-const router = require('express').Router();
+import express from 'express';
+const router = express.Router();
+
+import { getAllEjercicios, getEjercicioById, createEjercicio, updateEjercicio, deleteEjercicio } from "../controllers/ejercicioController.js";
 
 // Ruta para obtener todos los ejercicios
 router.get('/', getAllEjercicios);
@@ -17,4 +18,4 @@ router.put('/:id', updateEjercicio);
 // Ruta para eliminar un ejercicio
 router.delete('/:id', deleteEjercicio);
 
-module.exports = router;
+export default router;
