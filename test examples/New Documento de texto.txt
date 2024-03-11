@@ -1,0 +1,78 @@
+Diseñar e implementar una clase que represente un cajero automático de un banco. En principio pensarlo como una alcancia, sin control de usuarios.
+El cajero deberá poseer los siguientes métodos:
+
+- add(denomination, amount)
+	Agrega <amount> billetes de valor <denomination> al cajero. Los mismos son almacenados internamente para su extracción por parte de los clientes. Las denominaciones aceptadas son $100, $200, $500 y $1000.
+- retrieve(amount)
+	Quita del cajero, de ser posible, la cantidad solicitada de dinero (<amount>). No se valida la cuenta de la que se extrae, es comunitario. Para evitar quedarse rápidamente sin billetes de baja denominacion, los cajeros devuelven el dinero utilizando una combinación de billetes de tal manera que se pueda usar la mayor cantidad de billetes de alta denominación. Ej: para devolver 2000 intenta dar 2 de 1000, si no tiene, 1 de 1000  y 2 de 500, y asi.
+	El metodo da como respuesta los billetes entregados en caso de ser posible dar la cantidad exacta pedida, sino no devuelve billetes
+
+"use strict";
+
+let billetes = [[1000, 0], [500, 0], [200, 0], [100, 0]];
+let saldo = 0;
+function add(denomination, amount) {
+
+    let total = 0;
+    for (let i = 0; i < billetes.length; i++) {
+        if (denomination == billetes[i][0]) {
+            billetes[i][1] = amount;
+            // console.log(`${billetes[i][0]}: ${billetes[i][1]}`);
+        }
+        total += billetes[i][0] * billetes[i][1];
+    }
+    saldo = total;
+    console.log(total);
+};
+
+function retrieve(amount) {
+    let billetesEntregados = [[1000, 0], [500, 0], [200, 0], [100, 0]];
+    let currentAmount = amount;
+
+    if (amount < saldo) {
+
+
+        let auxBillete = billetes;
+        for (let i = 0; i < billetes.length; i++) {
+            let billetesNeceasarios = parseInt(currentAmount / billetes[i][0]);
+
+            if (auxBillete[i][1] > 0 && auxBillete[i][1] >= billetesNeceasarios) {
+
+                currentAmount -= auxBillete[i][0] * billetesNeceasarios;
+
+                billetesEntregados[i][1] = billetesNeceasarios;
+                auxBillete[i][1] -= billetesNeceasarios;
+            } else {
+                currentAmount -= auxBillete[i][0] * auxBillete[i][1];
+                billetesEntregados[i][1] = auxBillete[i][1];
+                auxBillete[i][1] = 0;
+            }
+        }
+        if (currentAmount > 0) {
+            console.log("No hay billetes disponibles para esta transaccion");
+            currentAmount = amount;
+            auxBillete = billetes;
+        } else if (currentAmount == 0) {
+            billetes = auxBillete
+            console.log(billetesEntregados);
+        }
+
+
+    }
+
+};
+
+add(1000, 2);
+//add(500, 4);
+//add(200, 3);
+//add(100, 10);
+//retrieve(8000);
+console.log('primer retrieve')
+retrieve(1500);
+console.log('segundo retrieve')
+retrieve(2000);
+
+
+
+// you can write to stdout for debugging purposes, e.g.
+console.log("This is a debug message");
