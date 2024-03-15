@@ -1,7 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import ejercicioRoutes from './src/routes/ejercicioRoutes.js';
+import ejercicioRoutes from './pages/api/routes/ejercicioRoutes.js';
+import cors from 'cors'; // Importa cors
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middlewares
 app.use(express.json());
+app.use(cors()); // Usa el middleware de CORS
 
 // Conexión a MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
