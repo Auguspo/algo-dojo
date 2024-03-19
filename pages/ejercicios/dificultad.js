@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchExercises } from '../utils/fetchExercises';
 import Layout from '../components/Layout';
 import Link from 'next/link';
+import LoadingComponent from '../components/Loading';
 
 const DifficultyPage = () => {
   const [ejercicios, setEjercicios] = useState([]);
@@ -21,15 +22,9 @@ const DifficultyPage = () => {
     ejerciciosPorDificultad[ejercicio.difficulty - 1].push(ejercicio);
   });
 
-  if (!ejercicios) {
+  if (!ejercicios[1]) {
     return (
-      <Layout>
-        <div className="flex justify-center items-center h-screen  ">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-4">Cargando...</h1>
-          </div>
-        </div>
-      </Layout>
+     <LoadingComponent />
     );
   }
 

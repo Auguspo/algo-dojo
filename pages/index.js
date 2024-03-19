@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 import Link from "next/link";
 
-
 const HomePage = () => {
   return (
     <div className="bg-gray-100  ">

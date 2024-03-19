@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchExercises } from "../utils/fetchExercises";
 import Layout from "../components/Layout";
 import Link from "next/link";
-
+import LoadingComponent from "../components/Loading";
 const tagsPage = () => {
   const [ejercicios, setEjercicios] = useState([]);
 
@@ -23,15 +23,9 @@ const tagsPage = () => {
   // Convert the set to an array
   const tagsArray = Array.from(uniqueTags);
 
-  if (!tagsArray || !ejercicios[0]) {
+  if ( !ejercicios[0]) {
     return (
-      <Layout>
-        <div className="flex justify-center items-center h-screen">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-4">Cargando...</h1>
-          </div>
-        </div>
-      </Layout>
+      <LoadingComponent />
     );
   }
 

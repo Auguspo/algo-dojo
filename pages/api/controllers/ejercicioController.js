@@ -1,10 +1,10 @@
-import Ejercicios from '../models/ejercicioSchema.js';
+import Ejercicio from "../models/ejercicioSchema.js";
 
 // Obtener todos los ejercicios
 export const getAllEjercicios = async (req, res) => {
   try {
-    const ejercicio = await Ejercicios.find();
-    res.json(ejercicio);
+    const ejercicios = await Ejercicio.find();
+    res.json(ejercicios);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -13,9 +13,9 @@ export const getAllEjercicios = async (req, res) => {
 // Obtener un ejercicio por ID
 export const getEjercicioById = async (req, res) => {
   try {
-    const ejercicio = await Ejercicios.findById(req.params.id);
+    const ejercicio = await Ejercicio.findById(req.params.id);
     if (!ejercicio) {
-      return res.status(404).json({ message: 'Ejercicio no encontrado' });
+      return res.status(404).json({ message: "Ejercicio no encontrado" });
     }
     res.json(ejercicio);
   } catch (err) {
@@ -25,7 +25,7 @@ export const getEjercicioById = async (req, res) => {
 
 // Crear un nuevo ejercicio
 export const createEjercicio = async (req, res) => {
-  const ejercicio = new Ejercicios({
+  const ejercicio = new Ejercicio({
     name: req.body.name,
     description: req.body.description,
     difficulty: req.body.difficulty,
@@ -44,9 +44,13 @@ export const createEjercicio = async (req, res) => {
 // Actualizar un ejercicio
 export const updateEjercicio = async (req, res) => {
   try {
-    const ejercicio = await ejercicios.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const ejercicio = await Ejercicio.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
     if (!ejercicio) {
-      return res.status(404).json({ message: 'Ejercicio no encontrado' });
+      return res.status(404).json({ message: "Ejercicio no encontrado" });
     }
     res.json(ejercicio);
   } catch (err) {
@@ -57,11 +61,11 @@ export const updateEjercicio = async (req, res) => {
 // Eliminar un ejercicio
 export const deleteEjercicio = async (req, res) => {
   try {
-    const ejercicio = await ejercicios.findByIdAndDelete(req.params.id);
+    const ejercicio = await Ejercicio.findByIdAndDelete(req.params.id);
     if (!ejercicio) {
-      return res.status(404).json({ message: 'Ejercicio no encontrado' });
+      return res.status(404).json({ message: "Ejercicio no encontrado" });
     }
-    res.json({ message: 'Ejercicio eliminado' });
+    res.json({ message: "Ejercicio eliminado" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

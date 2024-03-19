@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { fetchExercises } from "../utils/fetchExercises";
 import Link from "next/link";
+import LoadingComponent from "../components/Loading";
 
 export default function Todos() {
   const [ejercicios, setEjercicios] = useState([]);
@@ -17,13 +18,7 @@ export default function Todos() {
 
   if (!ejercicios[0]) {
     return (
-      <Layout>
-        <div className="flex justify-center items-center h-screen">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-4">Cargando...</h1>
-          </div>
-        </div>
-      </Layout>
+      <LoadingComponent />
     );
   }
 
