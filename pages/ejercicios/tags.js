@@ -3,7 +3,7 @@ import { fetchExercises } from "../utils/fetchExercises";
 import Layout from "../components/Layout";
 import Link from "next/link";
 import LoadingComponent from "../components/Loading";
-const tagsPage = () => {
+const TagsPage = () => {
   const [ejercicios, setEjercicios] = useState([]);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const tagsPage = () => {
   );
 };
 
-export default tagsPage;
+export default TagsPage;
 
 export async function getStaticProps() {
   const ejercicios = await fetchExercises();
