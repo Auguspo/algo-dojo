@@ -1,4 +1,4 @@
-import connectDb from '../../utils/connectDb';
+import{ connectDb} from '../../utils/connectDb';
 import  disconnectDb  from "../../utils/connectDb"
 import { ObjectId } from "mongodb";
 
@@ -20,7 +20,7 @@ export const getAllEjercicios = async () => {
 // Obtener un ejercicio por ID
 export const getEjercicioById = async (id) => {
   try {
-    return await collection.findOne({ _id: ObjectId(id) }); // Buscar el documento por su ID
+    return await collection.findOne({ _id: new ObjectId(id) });
   } catch (error) {
     throw new Error(`Error al obtener el ejercicio por ID: ${error.message}`);
   }

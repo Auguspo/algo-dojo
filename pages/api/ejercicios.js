@@ -10,10 +10,19 @@ export default async function handler(req, res) {
   switch (req.method) {
     case "GET":
       try {
-        const ejercicios = await getAllEjercicios();
-        res.status(200).json(ejercicios);
+        const { id } = req.query;
+        if (id) {
+          const ejercicio = await getEjercicioById(id);
+          if (!ejercicio) {
+            return res.status(404).json({ error: "Ejercicio no encontrado" });
+          }
+          return res.status(200).json(ejercicio);
+        } else {
+          const ejercicios = await getAllEjercicios();
+          return res.status(200).json(ejercicios);
+        }
       } catch (error) {
-        res.status(500).json({ error: error.message });
+        return res.status(500).json({ error: error.message });
       }
       break;
     case "POST":

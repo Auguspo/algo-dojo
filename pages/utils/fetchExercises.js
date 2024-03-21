@@ -18,7 +18,7 @@ export async function fetchExercises() {
 }
 
 export async function fetchExerciseById(id) {
-  return handleRequest(() => axios.get(`${baseURL}/${id}`));
+  return handleRequest(() => axios.get(`${baseURL}?id=${id}`));
 }
 
 export async function createExercise(ejercicio) {
