@@ -51,6 +51,10 @@ const EjerciciosCRUD = () => {
       } else {
         await createExercise(formData);
       }
+     
+    } catch (error) {
+      console.error("Error al guardar el ejercicio:", error);
+    } finally {
       setFormData({
         name: "",
         description: "",
@@ -59,10 +63,9 @@ const EjerciciosCRUD = () => {
         tags: [],
       });
       setReloadData(!reloadData); // Actualiza el estado para volver a cargar los datos
-    } catch (error) {
-      console.error("Error al guardar el ejercicio:", error);
     }
   };
+  
 
   const handleEdit = (ejercicio) => {
     setFormData({
@@ -73,12 +76,13 @@ const EjerciciosCRUD = () => {
       tags: ejercicio.tags,
     });
     setEditingId(ejercicio._id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleDelete = async (id) => {
     try {
       await deleteExercise(id);
-      fetchData();
+      setReloadData(!reloadData); // Actualiza el estado para volver a cargar los datos
     } catch (error) {
       console.error("Error al eliminar el ejercicio:", error);
     }
