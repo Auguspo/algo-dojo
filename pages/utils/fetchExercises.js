@@ -33,3 +33,11 @@ export async function updateExercise(id, ejercicio) {
 export async function deleteExercise(id) {
   return handleRequest(() => axios.delete(`${baseURL}?id=${id}`));
 }
+
+export default {
+  fetchExercises,
+  fetchExerciseById,
+  createExercise,
+  updateExercise,
+  deleteExercise
+};

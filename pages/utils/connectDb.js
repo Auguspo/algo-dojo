@@ -27,4 +27,4 @@ const disconnectDb = async () => {
   }
 };
 
-export { connectDb, disconnectDb };
+export default { connectDb, disconnectDb };
