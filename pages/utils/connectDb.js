@@ -8,7 +8,6 @@ const connectDb = async (collection) => {
     const conn = await mongoose.connect(process.env.MONGODB_URI, {
       user: process.env.MONGODB_USER,
       pass: process.env.MONGODB_PASSWORD,
-
     });
 
     console.log('Conectado a MongoDB');
@@ -27,4 +26,4 @@ const disconnectDb = async () => {
   }
 };
 
-export default { connectDb, disconnectDb };
+export { connectDb, disconnectDb };

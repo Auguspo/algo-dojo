@@ -1,7 +1,6 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
-
 const baseURL = process.env.BASE_URL || 'http://localhost:3000/api/ejercicios';
 
 async function handleRequest(requestFunction) {
@@ -33,11 +32,3 @@ export async function updateExercise(id, ejercicio) {
 export async function deleteExercise(id) {
   return handleRequest(() => axios.delete(`${baseURL}?id=${id}`));
 }
-
-export default {
-  fetchExercises,
-  fetchExerciseById,
-  createExercise,
-  updateExercise,
-  deleteExercise
-};
