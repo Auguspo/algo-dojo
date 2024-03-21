@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
-import { fetchExerciseById } from "../utils/fetchExercises";
+import { fetchExerciseById } from "../../utils/fetchExercises";
 import LoadingComponent from "../components/Loading";
 import EjercicioCard from "../components/EjercicioCard";
 import Head from "next/head";
 
-export default function Ejercicio() {
+const Ejercicio = () =>{
   const router = useRouter();
   const { id } = router.query;
   const [ejercicio, setEjercicio] = useState(null);
@@ -34,3 +34,4 @@ export default function Ejercicio() {
     </Layout>
   );
 }
+export default Ejercicio;

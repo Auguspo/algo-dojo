@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchExercises } from '../utils/fetchExercises';
+import { fetchExercises } from '../../utils/fetchExercises';
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import LoadingComponent from '../components/Loading';

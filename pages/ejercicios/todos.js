@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { fetchExercises } from "../utils/fetchExercises";
+import { fetchExercises } from "../../utils/fetchExercises";
 import Link from "next/link";
 import LoadingComponent from "../components/Loading";
 

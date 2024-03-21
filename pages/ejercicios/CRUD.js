@@ -4,7 +4,7 @@ import {
   createExercise,
   updateExercise,
   deleteExercise,
-} from "../utils/fetchExercises";
+} from '../../utils/fetchExercises';
 import Layout from "../components/Layout";
 import EjerciciosList from "../components/EjerciciosList"; // Importa el componente EjerciciosList
 
