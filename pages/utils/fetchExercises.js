@@ -1,29 +1,33 @@
-// utils/fetchExercises.js
-export async function fetchExercises() {
+import axios from 'axios';
+
+const baseURL = 'http://localhost:3000/api/ejercicios';
+
+async function handleRequest(requestFunction) {
   try {
-    const res = await fetch('http://localhost:3000/api/ejercicios');
-    if (!res.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    const data = await res.json();
-    return data;
+    const res = await requestFunction();
+    return res.data;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Error:', error);
+    throw error;
   }
 }
 
+export async function fetchExercises() {
+  return handleRequest(() => axios.get(baseURL));
+}
 
-  export async function fetchExerciseById  (id) {
-    try {
-      const res = await fetch(`http://localhost:3000/api/ejercicios/${id}`);
-      if (!res.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+export async function fetchExerciseById(id) {
+  return handleRequest(() => axios.get(`${baseURL}/${id}`));
+}
 
- 
+export async function createExercise(ejercicio) {
+  return handleRequest(() => axios.post(baseURL, ejercicio));
+}
+
+export async function updateExercise(id, ejercicio) {
+  return handleRequest(() => axios.put(`${baseURL}?id=${id}`, ejercicio));
+}
+
+export async function deleteExercise(id) {
+  return handleRequest(() => axios.delete(`${baseURL}?id=${id}`));
+}

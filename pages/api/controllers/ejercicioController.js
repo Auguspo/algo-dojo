@@ -1,68 +1,69 @@
-import Ejercicios from '../models/ejercicioSchema.js';
+import  { connectDb, disconnectDb } from "../../utils/connectDb";
+import { ObjectId } from "mongodb";
+
+// Conectar a la base de datos
+const collection = await connectDb("ejercicios");
 
 // Obtener todos los ejercicios
-export const getAllEjercicios = async (req, res) => {
+export const getAllEjercicios = async () => {
   try {
-    const ejercicio = await Ejercicios.find();
-    res.json(ejercicio);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const cursor = await collection.find({}); // Buscar todos los documentos en la colección
+    const ejercicios = await cursor.toArray(); // Convertir los documentos a un array
+
+    return ejercicios; // Devuelve los documentos como un array
+  } catch (error) {
+    throw new Error(`Error al obtener todos los ejercicios: ${error.message}`);
   }
 };
 
 // Obtener un ejercicio por ID
-export const getEjercicioById = async (req, res) => {
+export const getEjercicioById = async (id) => {
   try {
-    const ejercicio = await Ejercicios.findById(req.params.id);
-    if (!ejercicio) {
-      return res.status(404).json({ message: 'Ejercicio no encontrado' });
-    }
-    res.json(ejercicio);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    return await collection.findOne({ _id: ObjectId(id) }); // Buscar el documento por su ID
+  } catch (error) {
+    throw new Error(`Error al obtener el ejercicio por ID: ${error.message}`);
   }
 };
 
 // Crear un nuevo ejercicio
-export const createEjercicio = async (req, res) => {
-  const ejercicio = new Ejercicios({
-    name: req.body.name,
-    description: req.body.description,
-    difficulty: req.body.difficulty,
-    tags: req.body.tags,
-    solution: req.body.solution,
-  });
-
+export const createEjercicio = async (ejercicioData) => {
   try {
-    const nuevoEjercicio = await ejercicio.save();
-    res.status(201).json(nuevoEjercicio);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const result = await collection.insertOne(ejercicioData); // Insertar el nuevo documento
+    return result.ops[0]; // Devolver el nuevo documento insertado
+  } catch (error) {
+    throw new Error(`Error al crear un nuevo ejercicio: ${error.message}`);
   }
 };
 
 // Actualizar un ejercicio
-export const updateEjercicio = async (req, res) => {
+export const updateEjercicio = async (id, ejercicioData) => {
   try {
-    const ejercicio = await ejercicios.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!ejercicio) {
-      return res.status(404).json({ message: 'Ejercicio no encontrado' });
+    const objectId = new ObjectId(id); // Convertir el ID a ObjectId
+    const result = await collection.updateOne(
+      { _id: objectId }, // Filtrar el ejercicio por su ID
+      { $set: ejercicioData } // Actualizar los datos del ejercicio
+    );
+    if (result.modifiedCount > 0) {
+      return await getEjercicioById(id); // Devolver el ejercicio actualizado
+    } else {
+      throw new Error("No se pudo actualizar el ejercicio. El ejercicio no existe o no se pudo modificar.");
     }
-    res.json(ejercicio);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+  } catch (error) {
+    throw new Error(`Error al actualizar el ejercicio: ${error.message}`);
   }
 };
 
 // Eliminar un ejercicio
-export const deleteEjercicio = async (req, res) => {
+export const deleteEjercicio = async (id) => {
   try {
-    const ejercicio = await ejercicios.findByIdAndDelete(req.params.id);
-    if (!ejercicio) {
-      return res.status(404).json({ message: 'Ejercicio no encontrado' });
+    const objectId = new ObjectId(id); // Convertir el ID a ObjectId
+    const result = await collection.deleteOne({ _id: objectId }); // Eliminar el documento
+    if (result.deletedCount > 0) {
+      return true; // Devolver true si se eliminó correctamente
+    } else {
+      throw new Error("No se pudo eliminar el ejercicio. El ejercicio no existe o no se pudo eliminar.");
     }
-    res.json({ message: 'Ejercicio eliminado' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    throw new Error(`Error al eliminar el ejercicio: ${error.message}`);
   }
 };

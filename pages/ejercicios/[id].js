@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import { fetchExerciseById } from '../utils/fetchExercises';
-
+import LoadingComponent from '../components/Loading';
 export default function Ejercicio() {
   const router = useRouter();
   const { id } = router.query;
@@ -21,13 +21,7 @@ export default function Ejercicio() {
 
   if (!ejercicio) {
     return (
-      <Layout>
-        <div className="flex justify-center items-center h-screen">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-4">Cargando...</h1>
-          </div>
-        </div>
-      </Layout>
+   <LoadingComponent />
     );
   }
 
