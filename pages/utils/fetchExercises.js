@@ -1,6 +1,8 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const baseURL = 'http://localhost:3000/api/ejercicios';
+const baseURL = process.env.BASE_URL || 'http://localhost:3000/api/ejercicios';
 
 async function handleRequest(requestFunction) {
   try {
