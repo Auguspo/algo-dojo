@@ -1,4 +1,5 @@
-import  { connectDb, disconnectDb } from "../../utils/connectDb";
+import connectDb from '../../utils/connectDb';
+import  disconnectDb  from "../../utils/connectDb"
 import { ObjectId } from "mongodb";
 
 // Conectar a la base de datos
