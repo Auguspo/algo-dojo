@@ -1,29 +1,27 @@
 import React from 'react';
 
 const EjerciciosList = ({ ejercicios, handleEdit, handleDelete }) => {
+  // Verifica si ejercicios es un arreglo válido
+  if (!Array.isArray(ejercicios) || ejercicios.length === 0) {
+    return <p>No hay ejercicios disponibles.</p>;
+  }
+
   return (
     <ul>
       {ejercicios.map((ejercicio) => (
-        <li
-          key={ejercicio._id}
-          className="border border-gray-400 p-4 mb-4 rounded"
-        >
+        <li key={ejercicio._id} className="border border-gray-400 p-4 mb-4 rounded">
           <h3 className="text-xl font-bold mb-2">{ejercicio.name}</h3>
           <p className="mb-2">
-            <span className="font-bold">Descripción:</span>{" "}
-            {ejercicio.description}
+            <span className="font-bold">Descripción:</span> {ejercicio.description}
           </p>
           <p className="mb-2">
-            <span className="font-bold">Dificultad:</span>{" "}
-            {ejercicio.difficulty}
+            <span className="font-bold">Dificultad:</span> {ejercicio.difficulty}
           </p>
           <p className="mb-2">
-            <span className="font-bold">Solución:</span>{" "}
-            {ejercicio.solution}
+            <span className="font-bold">Solución:</span> {ejercicio.solution}
           </p>
           <p className="mb-4">
-            <span className="font-bold">Etiquetas:</span>{" "}
-            {ejercicio.tags.join(", ")}
+            <span className="font-bold">Etiquetas:</span> {ejercicio.tags.join(", ")}
           </p>
           <div className="flex justify-end">
             <button

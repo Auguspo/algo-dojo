@@ -13,8 +13,10 @@ async function handleRequest(requestFunction) {
   }
 }
 
-export async function fetchExercises() {
+export async function fetchExercises() {try{
+
   return handleRequest(() => axios.get(baseURL));
+}catch(e){console.error('Error:', e);}
 }
 
 export async function fetchExerciseById(id) {

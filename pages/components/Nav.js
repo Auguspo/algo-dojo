@@ -6,11 +6,12 @@ const Nav = () => {
   const router = useRouter();
 
   const logout = async () => {
-    try{
-    const response = await axios.post("/api/auth/logout");
-    router.push("/login");}catch(e){}
+    try {
+      const response = await axios.post("/api/auth/logout");
+      router.push("/login");
+    } catch (e) {}
   };
-  
+
   return (
     <nav className="bg-indigo-500 ">
       {" "}
@@ -55,7 +56,12 @@ const Nav = () => {
           >
             Log in
           </Link>
-          <button onClick={() => logout()}  className="inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2">logout</button>
+          <button
+            onClick={() => logout()}
+            className="inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            logout
+          </button>
         </div>
       </div>
     </nav>

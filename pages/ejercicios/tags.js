@@ -60,12 +60,3 @@ const TagsPage = () => {
 
 export default TagsPage;
 
-export async function getStaticProps() {
-  const ejercicios = await fetchExercises();
-
-  return {
-    props: {
-      ejercicios,
-    },
-  };
-}

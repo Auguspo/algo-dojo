@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 import bcrypt from "bcrypt";
-import  disconnectDb  from "../../connectionsDb/disconnectDb"
-import  connectDb  from "../../connectionsDb/connectDb"
+
+import { connectDb, disconnectDb } from "../../../connectionsDb/connectDb";
 
 export default async function loginHandler(req, res) {
   const { email, password } = req.body;

@@ -55,12 +55,4 @@ const DifficultyPage = () => {
 
 export default DifficultyPage;
 
-export async function getStaticProps() {
-  const ejercicios = await fetchExercises();
 
-  return {
-    props: {
-      ejercicios,
-    },
-  };
-}

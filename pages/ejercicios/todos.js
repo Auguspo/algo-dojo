@@ -16,12 +16,7 @@ export default function Todos() {
     fetchData();
   }, []);
 
-  if (!ejercicios[0]) {
-    return (
-      <LoadingComponent />
-    );
-  }
-
+ 
   const filteredEjercicios = ejercicios.filter((ejercicio) =>
     ejercicio.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -75,48 +70,10 @@ export default function Todos() {
           ) : (
             <p>No se encontraron ejercicios con ese nombre.</p>
           )}
-        {/* </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {ejercicios.map((ejercicio) => (
-            <Link   href={`/ejercicios/${ejercicio._id}`}
-              key={ejercicio._id}
-              className="bg-white shadow-md rounded-lg overflow-hidden"
-            >
-              <div className="px-6 py-4">
-                <h2 className="text-xl font-bold mb-2 text-black">
-                  {ejercicio.name}
-                </h2>
-                <p className="text-gray-700 text-base mb-2">
-                  Dificultad: {ejercicio.difficulty}
-                </p>
-                <p className="text-black text-base mb-4">
-                  {ejercicio.description.slice(0, 100)}...
-                </p>
-                <div className="flex items-center">
-                  {ejercicio.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Link>
-          ))} */}
+       
         </div>
       </div>
     </Layout>
   );
 }
 
-export async function getStaticProps() {
-  const ejercicios = await fetchExercises();
-
-  return {
-    props: {
-      ejercicios,
-    },
-  };
-}
