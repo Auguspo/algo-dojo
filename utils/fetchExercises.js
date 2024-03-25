@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
-const baseURL = process.env.BASE_URL;
+const baseURL = process.env.BASE_URL || 'https://algo-dojo.vercel.app/api/ejercicios';
 
 async function handleRequest(requestFunction) {
   try {
@@ -13,10 +13,8 @@ async function handleRequest(requestFunction) {
   }
 }
 
-export async function fetchExercises() {try{
-
+export async function fetchExercises() {
   return handleRequest(() => axios.get(baseURL));
-}catch(e){console.error('Error:', e);}
 }
 
 export async function fetchExerciseById(id) {
