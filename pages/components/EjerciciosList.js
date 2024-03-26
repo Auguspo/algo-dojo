@@ -1,9 +1,9 @@
 import React from 'react';
-
+import Loading from './Loading';
 const EjerciciosList = ({ ejercicios, handleEdit, handleDelete }) => {
   // Verifica si ejercicios es un arreglo válido
   if (!Array.isArray(ejercicios) || ejercicios.length === 0) {
-    return <p>No hay ejercicios disponibles.</p>;
+    return <Loading />;
   }
 
   return (

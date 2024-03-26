@@ -24,7 +24,9 @@ const DifficultyPage = () => {
 
   if (!ejercicios[1]) {
     return (
-     <LoadingComponent />
+      <Layout >
+      <LoadingComponent height="min-h-screen"/>
+      </Layout>
     );
   }
 

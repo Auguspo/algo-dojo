@@ -22,7 +22,9 @@ const Ejercicio = () =>{
   }, [id]);
 
   if (!ejercicio) {
-    return <LoadingComponent />;
+    return    <Layout >
+      <LoadingComponent height="min-h-screen"/>
+      </Layout>;
   }
   let pageTitle = ejercicio.name;
   return (

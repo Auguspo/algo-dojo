@@ -19,6 +19,7 @@ const EjerciciosCRUD = () => {
   });
   const [editingId, setEditingId] = useState(null);
   const [reloadData, setReloadData] = useState(false); // Estado local para indicar la necesidad de volver a cargar los datos
+  const [operationSuccess, setOperationSuccess] = useState(null); // Estado para indicar si la operación fue exitosa
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,9 +52,10 @@ const EjerciciosCRUD = () => {
       } else {
         await createExercise(formData);
       }
-     
+      setOperationSuccess(true); // Operación exitosa
     } catch (error) {
       console.error("Error al guardar el ejercicio:", error);
+      setOperationSuccess(false); // Error en la operación
     } finally {
       setFormData({
         name: "",
@@ -65,7 +67,6 @@ const EjerciciosCRUD = () => {
       setReloadData(!reloadData); // Actualiza el estado para volver a cargar los datos
     }
   };
-  
 
   const handleEdit = (ejercicio) => {
     setFormData({
@@ -92,6 +93,7 @@ const EjerciciosCRUD = () => {
     <Layout>
       <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-4">Ejercicios CRUD</h1>
+       
         <form onSubmit={handleSubmit} className="mb-8">
           <div className="mb-4">
             <label htmlFor="name" className="block font-bold mb-2">
@@ -165,12 +167,21 @@ const EjerciciosCRUD = () => {
               className="border border-gray-400 p-2 w-full"
             />
           </div>
-          <button
+         <div className="inline-flex gap-5"> <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
             {editingId ? "Actualizar" : "Crear"}
           </button>
+          {operationSuccess !== null && (
+          <div className="mb-4">
+            {operationSuccess ? (
+              <p className="text-green-500">Operación exitosa.</p>
+            ) : (
+              <p className="text-red-500">Error al realizar la operación.</p>
+            )}</div>
+         
+        )} </div>
         </form>
         <EjerciciosList
           ejercicios={ejercicios}

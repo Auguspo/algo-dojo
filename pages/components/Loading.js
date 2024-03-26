@@ -2,12 +2,12 @@
 import React from "react";
 import Layout from "./Layout";
 
-const Loading = () => {
+const Loading = ({height}) => {
   return (
-    <div className="loading">
-      <Layout>
+    
+      
         
-        <div className="flex min-h-screen items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8" role="status">
+        <div className={`${height} flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 `} role="status">
           <svg
             aria-hidden="true"
             class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -24,10 +24,10 @@ const Loading = () => {
               fill="currentFill"
             />
           </svg>
-          <span classname="sr-only">Loading...</span>
+         
         </div>
-      </Layout>
-    </div>
+    
+    
   );
 };
 

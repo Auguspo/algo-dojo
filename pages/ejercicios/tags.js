@@ -25,7 +25,9 @@ const TagsPage = () => {
 
   if ( !ejercicios[0]) {
     return (
-      <LoadingComponent />
+      <Layout >
+      <LoadingComponent height="min-h-screen"/>
+      </Layout>
     );
   }
 
