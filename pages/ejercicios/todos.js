@@ -43,7 +43,7 @@ export default function Todos() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredEjercicios.length > 0 ? (
             filteredEjercicios.map((ejercicio) => (
-             <EjercicioFullCard ejercicio={ejercicio} />
+             <EjercicioFullCard key={ejercicios._id} ejercicio={ejercicio} />
             ))
           ) : (
             <p>No se encontraron ejercicios con ese nombre.</p>

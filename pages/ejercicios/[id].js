@@ -6,7 +6,7 @@ import LoadingComponent from "../components/Loading";
 import EjercicioCard from "../components/EjercicioCard";
 import Head from "next/head";
 
-const Ejercicio = () =>{
+const Ejercicio = () => {
   const router = useRouter();
   const { id } = router.query;
   const [ejercicio, setEjercicio] = useState(null);
@@ -22,18 +22,25 @@ const Ejercicio = () =>{
   }, [id]);
 
   if (!ejercicio) {
-    return    <Layout >
-      <LoadingComponent height="min-h-screen"/>
-      </Layout>;
+    return (
+      <Layout>
+        <LoadingComponent height="min-h-screen" />
+      </Layout>
+    );
   }
+
   let pageTitle = ejercicio.name;
+
   return (
     <Layout>
       <Head>
         <title>{pageTitle}</title>
       </Head>
-      <EjercicioCard ejercicio={ejercicio} />
+      <div className="container mx-auto px-4 py-8"> {/* Añadimos padding horizontal y vertical para dispositivos móviles */}
+        <EjercicioCard ejercicio={ejercicio} />
+      </div>
     </Layout>
   );
-}
+};
+
 export default Ejercicio;

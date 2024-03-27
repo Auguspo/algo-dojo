@@ -42,3 +42,60 @@ body {
     text-wrap: balance;
   }
 }
+/* Estilos para dispositivos móviles */
+@media (max-width: 640px) {
+  /* Ajustar el tamaño de fuente y el espaciado para mejorar la legibilidad */
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  p {
+    @apply text-sm;
+  }
+
+  /* Ajustar el espaciado interno y externo de los elementos */
+  .container {
+    @apply px-4;
+  }
+
+  .btn {
+    @apply px-3 py-2;
+  }
+
+  /* Ajustar el tamaño de las imágenes */
+  img {
+    @apply w-full h-auto;
+  }
+
+  /* Ajustar el tamaño de los campos de formulario */
+  input,
+  textarea,
+  select {
+    @apply w-full;
+  }
+
+  /* Ocultar elementos no necesarios en dispositivos móviles */
+  .desktop-only {
+    @apply hidden;
+  }
+}
+
+/* Estilos para pantallas más grandes */
+@media (min-width: 640px) {
+  /* Ocultar elementos no necesarios en pantallas más grandes */
+  .mobile-only {
+    @apply hidden;
+  }
+}
