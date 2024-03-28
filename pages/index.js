@@ -11,12 +11,12 @@ const HomePage = () => {
         className="bg-cover  bg-top h-96 flex items-center justify-center "
         style={{ backgroundImage: `url(/DOJO.jpg)` }}
       >
-        <h1 className="text-6xl font-bold text-white text-center mb-4 border-2p-4 font-outline-4">
+        <h1 id="title" className="text-6xl font-bold text-white text-center mb-4 border-2p-4 drop-shadow-lg">
           Bienvenido a Algo Dojo
         </h1>
       </div>
 
-      <div className="container mx-auto py-12 text-black   ">
+      <div className="container mx-auto py-12 text-black text-justify  ">
         <p className="text-lg mb-8">
           Algo Dojo es una plataforma en línea dedicada a ejercicios de
           programación en JavaScript. Aquí podrás practicar y mejorar tus
@@ -34,19 +34,19 @@ const HomePage = () => {
         <div className="flex justify-center">
           <Link
             href="/ejercicios/dificultad"
-            className="inline-flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
+            className="inline-flex text-center  items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
           >
             Explorar por dificultad
           </Link>
           <Link
             href="/ejercicios/tags"
-            className="inline-flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-base font-medium text-white rounded-md ml-4 focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
+            className="inline-flex text-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-base font-medium text-white rounded-md ml-4 focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
           >
             Explorar por etiquetas
           </Link>
           <Link
             href="/ejercicios/todos"
-            className="inline-flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-base font-medium text-white rounded-md ml-4 focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
+            className="inline-flex text-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-base font-medium text-white rounded-md ml-4 focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
           >
             Ver todos
           </Link>
