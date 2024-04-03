@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { fetchExercises } from '../../utils/fetchExercises';
-import Layout from '../components/Layout';
 import Link from 'next/link';
-import LoadingComponent from '../components/Loading';
+
+import { fetchExercises } from '../../utils/fetchExercises';
+
+import { Layout, Loading } from '../components';
 
 const DifficultyPage = () => {
   const [ejercicios, setEjercicios] = useState([]);
@@ -23,7 +24,7 @@ const DifficultyPage = () => {
   if (!ejercicios[1]) {
     return (
       <Layout>
-        <LoadingComponent height='min-h-screen' />
+        <Loading height='min-h-screen' />
       </Layout>
     );
   }

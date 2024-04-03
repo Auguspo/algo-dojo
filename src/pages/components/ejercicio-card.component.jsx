@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EjercicioCard = ({ ejercicio }) => {
+export const EjercicioCard = ({ ejercicio }) => {
   // Verifica si el objeto ejercicio es válido
   if (!ejercicio) {
     return <p>No hay ejercicio disponible.</p>;
@@ -29,5 +29,3 @@ const EjercicioCard = ({ ejercicio }) => {
     </div>
   );
 };
-
-export default EjercicioCard;

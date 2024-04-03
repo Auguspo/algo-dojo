@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoadingComponent = ({ height }) => {
+export const Loading = ({ height }) => {
   return (
     <div
       className={`${height} flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 `}
@@ -25,5 +25,3 @@ const LoadingComponent = ({ height }) => {
     </div>
   );
 };
-
-export default LoadingComponent;

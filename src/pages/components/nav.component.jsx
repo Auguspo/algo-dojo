@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 import axios from 'axios';
 import { useAtom } from 'jotai';
 import { userNameAtom } from '../../utils/store';
 
-const Nav = () => {
+export const Nav = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [userName, setUserName] = useAtom(userNameAtom);
@@ -132,5 +133,3 @@ const Nav = () => {
     </nav>
   );
 };
-
-export default Nav;

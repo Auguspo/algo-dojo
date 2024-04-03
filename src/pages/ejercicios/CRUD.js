@@ -5,8 +5,8 @@ import {
   updateExercise,
   deleteExercise,
 } from '../../utils/fetchExercises';
-import Layout from '../components/Layout';
-import EjerciciosList from '../components/EjerciciosList'; // Importa el componente EjerciciosList
+
+import { Layout, EjerciciosList } from '../components';
 
 const EjerciciosCRUD = () => {
   const [ejercicios, setEjercicios] = useState([]);

@@ -1,8 +1,8 @@
 import React from 'react';
-import Nav from './Nav';
-import Footer from './Footer';
+import { Nav } from './nav.component';
+import { Footer } from './footer.component';
 
-const Layout = ({ children }) => {
+export const Layout = ({ children }) => {
   return (
     <div className='min-h-screen flex flex-col'>
       <Nav />
@@ -11,5 +11,3 @@ const Layout = ({ children }) => {
     </div>
   );
 };
-
-export default Layout;

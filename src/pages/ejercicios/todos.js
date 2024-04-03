@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import Layout from '../components/Layout';
 import { fetchExercises } from '../../utils/fetchExercises';
 
-import LoadingComponent from '../components/Loading';
-import EjercicioFullCard from '../components/EjercicioFullCard';
+import { Layout, Loading, EjercicioFullCard } from '../components';
 
 export default function Todos() {
   const [ejercicios, setEjercicios] = useState([]);
@@ -37,7 +35,7 @@ export default function Todos() {
   if (!ejercicios[0]) {
     return (
       <Layout>
-        <LoadingComponent height='min-h-screen' />
+        <Loading height='min-h-screen' />
       </Layout>
     );
   }

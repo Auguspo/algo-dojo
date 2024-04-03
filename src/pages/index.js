@@ -1,7 +1,7 @@
 import React from 'react';
-import Footer from './components/Footer';
-import Nav from './components/Nav';
 import Link from 'next/link';
+
+import {Footer, Nav} from './components';
 
 const HomePage = () => {
   return (

@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react';
-import { useAtom } from 'jotai';
-import Layout from './components/Layout';
-import axios from 'axios';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import LoadingComponent from './components/Loading';
+import { useAtom } from 'jotai';
+import axios from 'axios';
+
+import { Layout } from './components';
 import { userNameAtom } from '../utils/store';
 
 const Login = () => {

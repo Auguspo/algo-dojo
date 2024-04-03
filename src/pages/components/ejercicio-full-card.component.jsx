@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-const EjercicioFullCard = ({ ejercicio }) => {
+
+export const EjercicioFullCard = ({ ejercicio }) => {
   if (!ejercicio) {
     return <p>No hay ejercicio disponible.</p>;
   }
@@ -36,5 +37,3 @@ const EjercicioFullCard = ({ ejercicio }) => {
     </>
   );
 };
-
-export default EjercicioFullCard;

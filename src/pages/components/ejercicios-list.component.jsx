@@ -1,6 +1,7 @@
 import React from 'react';
-import Loading from './Loading';
-const EjerciciosList = ({ ejercicios, handleEdit, handleDelete }) => {
+import { Loading } from './loading.component';
+
+export const EjerciciosList = ({ ejercicios, handleEdit, handleDelete }) => {
   // Verifica si ejercicios es un arreglo válido
   if (!Array.isArray(ejercicios) || ejercicios.length === 0) {
     return <Loading />;
@@ -48,5 +49,3 @@ const EjerciciosList = ({ ejercicios, handleEdit, handleDelete }) => {
     </ul>
   );
 };
-
-export default EjerciciosList;
