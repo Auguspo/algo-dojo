@@ -8,7 +8,13 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-#title{ text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 2px 2px 0 black;}
+#title {
+  text-shadow:
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    2px 2px 0 black;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -50,7 +56,6 @@ body {
   }
 
   h1 {
-   
     @apply text-2xl;
   }
 
@@ -101,7 +106,9 @@ body {
   }
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 

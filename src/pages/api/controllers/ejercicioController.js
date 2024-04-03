@@ -1,14 +1,13 @@
-import { ObjectId } from "mongodb";
-import { connectDb, disconnectDb } from "../../../connectionsDb/connectDb";
+import { ObjectId } from 'mongodb';
+import { connectDb, disconnectDb } from '../../../connectionsDb/connectDb';
 
 // Obtener todos los ejercicios
 export const getAllEjercicios = async () => {
   try {
-    const collection = await connectDb("ejercicios");
+    const collection = await connectDb('ejercicios');
     const cursor = await collection.find({}); // Buscar todos los documentos en la colección
     const ejercicios = await cursor.toArray(); // Convertir los documentos a un array
 
-   
     return ejercicios; // Devuelve los documentos como un array
   } catch (error) {
     throw new Error(`Error al obtener todos los ejercicios: ${error.message}`);
@@ -20,7 +19,7 @@ export const getAllEjercicios = async () => {
 // Obtener un ejercicio por ID
 export const getEjercicioById = async (id) => {
   try {
-    const collection = await connectDb("ejercicios");
+    const collection = await connectDb('ejercicios');
     return await collection.findOne({ _id: new ObjectId(id) });
   } catch (error) {
     throw new Error(`Error al obtener el ejercicio por ID: ${error.message}`);
@@ -32,7 +31,7 @@ export const getEjercicioById = async (id) => {
 // Crear un nuevo ejercicio
 export const createEjercicio = async (ejercicioData) => {
   try {
-    const collection = await connectDb("ejercicios");
+    const collection = await connectDb('ejercicios');
     const result = await collection.insertOne(ejercicioData); // Insertar el nuevo documento
 
     return result.ops[0]; // Devolver el nuevo documento insertado
@@ -46,7 +45,7 @@ export const createEjercicio = async (ejercicioData) => {
 // Actualizar un ejercicio
 export const updateEjercicio = async (id, ejercicioData) => {
   try {
-    const collection = await connectDb("ejercicios");
+    const collection = await connectDb('ejercicios');
     const objectId = new ObjectId(id); // Convertir el ID a ObjectId
     const result = await collection.updateOne(
       { _id: objectId }, // Filtrar el ejercicio por su ID
@@ -57,7 +56,7 @@ export const updateEjercicio = async (id, ejercicioData) => {
       return await getEjercicioById(id); // Devolver el ejercicio actualizado
     } else {
       throw new Error(
-        "No se pudo actualizar el ejercicio. El ejercicio no existe o no se pudo modificar."
+        'No se pudo actualizar el ejercicio. El ejercicio no existe o no se pudo modificar.'
       );
     }
   } catch (error) {
@@ -70,14 +69,14 @@ export const updateEjercicio = async (id, ejercicioData) => {
 // Eliminar un ejercicio
 export const deleteEjercicio = async (id) => {
   try {
-    const collection = await connectDb("ejercicios");
+    const collection = await connectDb('ejercicios');
     const objectId = new ObjectId(id); // Convertir el ID a ObjectId
     const result = await collection.deleteOne({ _id: objectId }); // Eliminar el documento
     if (result.deletedCount > 0) {
       return true; // Devolver true si se eliminó correctamente
     } else {
       throw new Error(
-        "No se pudo eliminar el ejercicio. El ejercicio no existe o no se pudo eliminar."
+        'No se pudo eliminar el ejercicio. El ejercicio no existe o no se pudo eliminar.'
       );
     }
   } catch (error) {

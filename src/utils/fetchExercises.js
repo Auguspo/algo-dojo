@@ -1,7 +1,8 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
-const baseURL = process.env.BASE_URL || 'https://algo-dojo.vercel.app/api/ejercicios';
+const baseURL =
+  process.env.BASE_URL || 'https://algo-dojo.vercel.app/api/ejercicios';
 
 async function handleRequest(requestFunction) {
   try {
