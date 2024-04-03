@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { fetchExercises } from '../../utils/fetchExercises';
 
-import { Layout, Loading } from '../components';
+import { Layout, Loading } from '../../components';
 
 const DifficultyPage = () => {
   const [ejercicios, setEjercicios] = useState([]);

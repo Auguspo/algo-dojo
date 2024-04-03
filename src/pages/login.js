@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import axios from 'axios';
 
-import { Layout } from './components';
+import { Layout } from './../components';
 import { userNameAtom } from '../utils/store';
 
 const Login = () => {

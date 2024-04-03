@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import { Layout, Loading, EjercicioCard } from '../components';
+import { Layout, Loading, EjercicioCard } from '../../components';
 
 import { fetchExerciseById } from '../../utils/fetchExercises';
 

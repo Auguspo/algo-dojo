@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import {Footer, Nav} from './components';
+import { Footer, Nav } from './../components';
 
 const HomePage = () => {
   return (

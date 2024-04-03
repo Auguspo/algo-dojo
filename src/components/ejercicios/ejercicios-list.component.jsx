@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loading } from './loading.component';
+import { Loading } from '../loading.component';
 
 export const EjerciciosList = ({ ejercicios, handleEdit, handleDelete }) => {
   // Verifica si ejercicios es un arreglo válido

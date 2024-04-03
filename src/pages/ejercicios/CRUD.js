@@ -6,7 +6,7 @@ import {
   deleteExercise,
 } from '../../utils/fetchExercises';
 
-import { Layout, EjerciciosList } from '../components';
+import { Layout, EjerciciosList } from '../../components';
 
 const EjerciciosCRUD = () => {
   const [ejercicios, setEjercicios] = useState([]);

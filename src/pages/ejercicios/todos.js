@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchExercises } from '../../utils/fetchExercises';
 
-import { Layout, Loading, EjercicioFullCard } from '../components';
+import { Layout, Loading, EjercicioFullCard } from '../../components';
 
 export default function Todos() {
   const [ejercicios, setEjercicios] = useState([]);

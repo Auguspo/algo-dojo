@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import axios from 'axios';
 import { useAtom } from 'jotai';
-import { userNameAtom } from '../../utils/store';
+import { userNameAtom } from '../utils/store';
 
 export const Nav = () => {
   const router = useRouter();
