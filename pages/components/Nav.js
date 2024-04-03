@@ -2,16 +2,23 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useAtom } from 'jotai';
+import { userNameAtom } from '../../utils/store';
+
 
 const Nav = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [userName, setUserName] = useAtom(userNameAtom);
+
 
   const logout = async () => {
     try {
       const response = await axios.post("/api/auth/logout");
+      setUserName(null);
+      console.log(userNameAtom)
       router.push("/login");
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const toggleMenu = () => {
@@ -57,9 +64,8 @@ const Nav = () => {
             </button>
           </div>
           <div
-            className={`${
-              isOpen ? "block" : "hidden"
-            } w-full md:flex md:items-center md:w-auto`}
+            className={`${isOpen ? "block" : "hidden"
+              } w-full md:flex md:items-center md:w-auto`}
           >
             <div className="md:flex md:space-x-4">
               <Link
@@ -86,18 +92,42 @@ const Nav = () => {
               >
                 Todos
               </Link>
-              <Link
-                href="/login"
-                className="block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Log in
-              </Link>
-              <button
-                onClick={() => logout()}
-                className="block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                logout
-              </button>
+              {userName ? (
+
+                <div className="relative inline-block">
+                  <button className="logout-button block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2">
+                    Hola, {userName}
+                    <svg
+                      className="ml-2 h-4 w-4"
+
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                  <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <button
+                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      onClick={logout}
+                    >
+                      Cerrar sesión
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  className="block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Iniciar sesión
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -1,15 +1,19 @@
-import { useState } from "react";
-import Layout from "./components/Layout";
-import axios from "axios";
-import { useRouter } from "next/router";
-import LoadingComponent from "./components/Loading";
+import { useState, useContext } from 'react';
+import { useAtom } from 'jotai';
+import Layout from './components/Layout';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import LoadingComponent from './components/Loading';
+import { userNameAtom } from '../utils/store';
+
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const router = useRouter();
-  const [loading, setLoading] = useState(false); // Estado de carga
+  const [loading, setLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
-  const [loginError, setLoginError] = useState(false); // Estado de error
+  const [loginError, setLoginError] = useState(false);
+  const [, setUserName] = useAtom(userNameAtom); 
 
   const handleChange = (e) => {
     setCredentials((prevCredentials) => ({
@@ -22,16 +26,19 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("/api/auth/login", credentials);
-      console.log(response);
+      const response = await axios.post('/api/auth/login', credentials);
       if (response.status === 200) {
+       
+        const { username } = response.data; 
+    
+        setUserName(username);
         setLoginSuccess(true);
-        router.push("/");
+        router.push('/'); 
       }
     } catch (error) {
-      console.error("Error al iniciar sesión:", error);
+      console.error('Error al iniciar sesión:', error);
       setLoginSuccess(false);
-      setLoginError(true); // Establecer el estado de error
+      setLoginError(true);
     } finally {
       setLoading(false);
     }

@@ -12,13 +12,15 @@ export default async function loginHandler(req, res) {
     const user = await collection.findOne({ email });
 
     if (user) {
+
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (passwordMatch) {
+
         const token = jwt.sign(
           {
             exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
             email: user.email,
-            user: user.username,
+            username: user.username,
           },
           process.env.JWT_SECRET
         );
@@ -27,9 +29,16 @@ export default async function loginHandler(req, res) {
           sameSite: "strict",
           maxAge: 60 * 60 * 24 * 30,
           path: "/",
+
         });
         res.setHeader("Set-Cookie", serialized);
-        return res.json("login successfully");
+
+        const responseData = {
+
+          username: user.username,
+          email: user.email,
+        };
+        return res.json(responseData);
       } else {
         return res.status(401).json({ error: "Invalid email or password" });
       }
