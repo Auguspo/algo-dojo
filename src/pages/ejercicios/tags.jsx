@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import { fetchExercises } from '../../utils/fetchExercises';
+import { Layout, Loading } from 'src/components';
 
-import { Layout, Loading } from '../../components';
+import { apiClient } from 'src/utils/apiClient';
 
 const TagsPage = () => {
   const [ejercicios, setEjercicios] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchExercises();
-      setEjercicios(data);
+      const res = await apiClient.get('/ejercicios');
+      setEjercicios(res.data);
     };
     fetchData();
   }, []);

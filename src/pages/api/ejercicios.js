@@ -4,7 +4,7 @@ import {
   createEjercicio,
   updateEjercicio,
   deleteEjercicio,
-} from './controllers/ejercicioController';
+} from 'src/backend/controllers/ejercicioController';
 
 export default async function handler(req, res) {
   switch (req.method) {

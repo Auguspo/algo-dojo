@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useAtom } from 'jotai';
 import axios from 'axios';
 
-import { Layout } from './../components';
-import { userNameAtom } from '../utils/store';
+import { Layout } from 'src/components';
+import { useCurrentUser } from 'src/hooks';
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const router = useRouter();
+
+  const { setCurrentUser } = useCurrentUser();
+
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [loginError, setLoginError] = useState(false);
-  const [, setUserName] = useAtom(userNameAtom);
 
   const handleChange = (e) => {
     setCredentials((prevCredentials) => ({
@@ -27,9 +28,10 @@ const Login = () => {
     try {
       const response = await axios.post('/api/auth/login', credentials);
       if (response.status === 200) {
-        const { username } = response.data;
+        const { user, accessToken } = response.data;
+        localStorage.setItem('accessToken', accessToken);
+        setCurrentUser(user);
 
-        setUserName(username);
         setLoginSuccess(true);
         router.push('/');
       }

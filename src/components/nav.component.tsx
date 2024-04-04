@@ -2,30 +2,28 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import axios from 'axios';
-import { useAtom } from 'jotai';
-import { userNameAtom } from '../utils/store';
+import { useCurrentUser } from 'src/hooks';
 
 export const Nav = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [userName, setUserName] = useAtom(userNameAtom);
+  const { currentUser, setCurrentUser } = useCurrentUser();
 
-  const logout = async () => {
-    try {
-      const response = await axios.post('/api/auth/logout');
-      setUserName(null);
-      console.log(userNameAtom);
-      router.push('/login');
-    } catch (e) {}
+  const handleLogout = async () => {
+    setCurrentUser(null);
+    localStorage.removeItem('accessToken');
+    router.push('/login');
   };
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className='bg-indigo-500'>
+    <nav
+      className='bg-indigo-500 select-none'
+      onClick={() => {
+        if (isOpen) toggleMenu();
+      }}
+    >
       <div className='container mx-auto px-4 py-5'>
         <div className='flex items-center justify-between'>
           <Link
@@ -76,13 +74,13 @@ export const Nav = () => {
               </Link>
               <Link
                 href='/ejercicios/dificultad'
-                className='block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2'
+                className='block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2 text-nowrap'
               >
                 Por dificultad
               </Link>
               <Link
                 href='/ejercicios/tags'
-                className='block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2'
+                className='block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2 text-nowrap'
               >
                 Por etiquetas
               </Link>
@@ -92,10 +90,15 @@ export const Nav = () => {
               >
                 Todos
               </Link>
-              {userName ? (
-                <div className='relative inline-block'>
-                  <button className='logout-button block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2'>
-                    Hola, {userName}
+              {currentUser ? (
+                <div
+                  className='relative inline-block'
+                  onClick={() => {
+                    toggleMenu();
+                  }}
+                >
+                  <button className='logout-button block md:inline-flex items-center px-3 py-2 hover:bg-indigo-700 text-base font-medium text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:ring-offset-2 text-nowrap'>
+                    Hola, {currentUser.username}
                     <svg
                       className='ml-2 h-4 w-4'
                       xmlns='http://www.w3.org/2000/svg'
@@ -109,14 +112,18 @@ export const Nav = () => {
                       />
                     </svg>
                   </button>
-                  <div className='absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5'>
-                    <button
-                      className='block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                      onClick={logout}
-                    >
-                      Cerrar sesión
-                    </button>
-                  </div>
+                  {isOpen && (
+                    <div className='absolute right-0 mt-2 w-48 rounded-md overflow-hidden shadow-lg bg-white ring-1 ring-black ring-opacity-5'>
+                      <button
+                        className='block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900  text-nowrap'
+                        onClick={() => {
+                          handleLogout();
+                        }}
+                      >
+                        Cerrar sesión
+                      </button>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <Link

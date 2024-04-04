@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import { Layout, Loading, EjercicioCard } from '../../components';
+import { Layout, Loading, EjercicioCard } from 'src/components';
 
-import { fetchExerciseById } from '../../utils/fetchExercises';
+import { apiClient } from 'src/utils/apiClient';
 
 const Ejercicio = () => {
   const router = useRouter();
@@ -14,8 +14,8 @@ const Ejercicio = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const data = await fetchExerciseById(id);
-        setEjercicio(data);
+        const res = await apiClient.get(`/ejercicios?id=${id}`);
+        setEjercicio(res.data);
       }
     };
     fetchData();

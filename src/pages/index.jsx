@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { Footer, Nav } from './../components';
+import { Footer, Nav } from 'src/components';
 
 const HomePage = () => {
   return (
@@ -19,7 +19,7 @@ const HomePage = () => {
         </h1>
       </div>
 
-      <div className='container mx-auto py-12 text-black text-justify  '>
+      <div className='container mx-auto py-12 px-5 text-black text-justify  '>
         <p className='text-lg mb-8'>
           Algo Dojo es una plataforma en línea dedicada a ejercicios de
           programación en JavaScript. Aquí podrás practicar y mejorar tus

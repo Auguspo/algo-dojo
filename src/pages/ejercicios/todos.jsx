@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { fetchExercises } from '../../utils/fetchExercises';
 
-import { Layout, Loading, EjercicioFullCard } from '../../components';
+import { Layout, Loading, EjercicioFullCard } from 'src/components';
+
+import { apiClient } from 'src/utils/apiClient';
 
 export default function Todos() {
   const [ejercicios, setEjercicios] = useState([]);
@@ -11,8 +12,8 @@ export default function Todos() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchExercises();
-      setEjercicios(data);
+      const res = await apiClient.get('/ejercicios');
+      setEjercicios(res.data);
     };
 
     fetchData();
@@ -58,13 +59,13 @@ export default function Todos() {
           >
             <option value='9'>9</option>
             <option value='27'>27</option>
-            <option value='todos'>Todos</option>
+            <option value={`${ejercicios.length}`}>Todos</option>
           </select>{' '}
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {filteredEjercicios.length > 0 ? (
             filteredEjercicios.map((ejercicio) => (
-              <EjercicioFullCard key={ejercicios._id} ejercicio={ejercicio} />
+              <EjercicioFullCard key={ejercicio._id} ejercicio={ejercicio} />
             ))
           ) : (
             <p>No se encontraron ejercicios con ese nombre.</p>

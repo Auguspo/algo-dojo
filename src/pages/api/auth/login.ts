@@ -1,39 +1,40 @@
 import jwt from 'jsonwebtoken';
-import { serialize } from 'cookie';
 import bcrypt from 'bcrypt';
 
-import { connectDb, disconnectDb } from '../../../connectionsDb/connectDb';
+import { withDB } from 'src/connectionsDb/withDB';
 
 export default async function loginHandler(req, res) {
   const { email, password } = req.body;
 
   try {
-    const collection = await connectDb('usuarios');
-    const user = await collection.findOne({ email });
+    const { user } = await withDB(async (db) => {
+      const collection = await db.connection.collection('usuarios');
+      const user = await collection.findOne({ email });
+      return { user };
+    });
 
     if (user) {
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (passwordMatch) {
-        const token = jwt.sign(
+        const accessToken = jwt.sign(
           {
-            exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
             email: user.email,
             username: user.username,
           },
-          process.env.JWT_SECRET
+          process.env?.JWT_SECRET || '123456789',
+          {
+            expiresIn: '30d',
+          }
         );
-        const serialized = serialize('myTokenName', token, {
-          httpOnly: true,
-          sameSite: 'strict',
-          maxAge: 60 * 60 * 24 * 30,
-          path: '/',
-        });
-        res.setHeader('Set-Cookie', serialized);
 
         const responseData = {
-          username: user.username,
-          email: user.email,
+          accessToken,
+          user: {
+            username: user.username,
+            email: user.email,
+          },
         };
+
         return res.json(responseData);
       } else {
         return res.status(401).json({ error: 'Invalid email or password' });
@@ -44,7 +45,5 @@ export default async function loginHandler(req, res) {
   } catch (error) {
     console.error('Error during login:', error);
     return res.status(500).json({ error: 'Internal server error' });
-  } finally {
-    await disconnectDb();
   }
 }

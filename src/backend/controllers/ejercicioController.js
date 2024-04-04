@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { connectDb, disconnectDb } from '../../../connectionsDb/connectDb';
+import { connectDb, disconnectDb } from 'src/connectionsDb/connectDb';
 
 // Obtener todos los ejercicios
 export const getAllEjercicios = async () => {
@@ -32,9 +32,8 @@ export const getEjercicioById = async (id) => {
 export const createEjercicio = async (ejercicioData) => {
   try {
     const collection = await connectDb('ejercicios');
-    const result = await collection.insertOne(ejercicioData); // Insertar el nuevo documento
-
-    return result.ops[0]; // Devolver el nuevo documento insertado
+    const result = await collection.insertOne(ejercicioData);
+    return result;
   } catch (error) {
     throw new Error(`Error al crear un nuevo ejercicio: ${error.message}`);
   } finally {
@@ -52,7 +51,6 @@ export const updateEjercicio = async (id, ejercicioData) => {
       { $set: ejercicioData } // Actualizar los datos del ejercicio
     );
     if (result.modifiedCount > 0) {
-      d;
       return await getEjercicioById(id); // Devolver el ejercicio actualizado
     } else {
       throw new Error(

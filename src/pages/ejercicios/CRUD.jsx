@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {
-  fetchExercises,
-  createExercise,
-  updateExercise,
-  deleteExercise,
-} from '../../utils/fetchExercises';
+import { Layout, EjerciciosList } from 'src/components';
 
-import { Layout, EjerciciosList } from '../../components';
+import { apiClient } from 'src/utils/apiClient';
+import { useIsPrivatePage } from 'src/hooks';
 
 const EjerciciosCRUD = () => {
+  useIsPrivatePage()
+  
   const [ejercicios, setEjercicios] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -24,8 +22,8 @@ const EjerciciosCRUD = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchExercises();
-        setEjercicios(data);
+        const res = await apiClient.get('/ejercicios');
+        setEjercicios(res.data);
       } catch (error) {
         console.error('Error al obtener los ejercicios:', error);
       }
@@ -47,10 +45,10 @@ const EjerciciosCRUD = () => {
     e.preventDefault();
     try {
       if (editingId) {
-        await updateExercise(editingId, formData);
+        await apiClient.put(`/ejercicios?id=${editingId}`, formData);
         setEditingId(null);
       } else {
-        await createExercise(formData);
+        await apiClient.post('/ejercicios', formData);
       }
       setOperationSuccess(true); // Operación exitosa
     } catch (error) {
@@ -82,7 +80,7 @@ const EjerciciosCRUD = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteExercise(id);
+      await apiClient.delete(`/ejercicios?id=${editingId}`);
       setReloadData(!reloadData); // Actualiza el estado para volver a cargar los datos
     } catch (error) {
       console.error('Error al eliminar el ejercicio:', error);
